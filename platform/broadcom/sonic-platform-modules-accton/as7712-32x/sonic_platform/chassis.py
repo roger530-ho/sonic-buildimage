@@ -20,6 +20,8 @@ class Chassis(PddfChassis):
     PDDF Platform-specific Chassis class
     """
 
+    STATUS_LED = 'DIAG_LED' # LED device_name in pddf-device.json
+
     def __init__(self, pddf_data=None, pddf_plugin_data=None):
         PddfChassis.__init__(self, pddf_data, pddf_plugin_data)
         self.__initialize_components()
@@ -57,3 +59,12 @@ class Chassis(PddfChassis):
             sys.stderr.write("SFP index {} out of range (1-{})\n".format(
                              index, len(self._sfp_list)))
         return sfp
+
+    def initizalize_system_led(self):
+        return True
+
+    def get_status_led(self):
+        return self.get_system_led(self.STATUS_LED)
+
+    def set_status_led(self, color):
+        return self.set_system_led(self.STATUS_LED, color)
