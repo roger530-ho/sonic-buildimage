@@ -75,6 +75,9 @@ class accton_as7312_monitor(object):
 
     def __init__(self, log_console, log_file, log_level=logging.INFO):
         """Needs a logger and a logger level."""
+
+        self.thermal = ThermalUtil()
+        self.fan = FanUtil()
         formatter = logging.Formatter('%(name)s %(message)s')
         sys_handler  = logging.handlers.SysLogHandler(address = '/dev/log')
         sys_handler.setFormatter(formatter)
@@ -117,8 +120,8 @@ class accton_as7312_monitor(object):
            2: 50000,
         }
   
-        thermal = ThermalUtil()
-        fan = FanUtil()
+        thermal = self.thermal
+        fan = self.fan
         for x in range(fan.get_idx_fan_start(), fan.get_num_fans()+1):
             fan_status = fan.get_fan_status(x)
             if fan_status is None:
