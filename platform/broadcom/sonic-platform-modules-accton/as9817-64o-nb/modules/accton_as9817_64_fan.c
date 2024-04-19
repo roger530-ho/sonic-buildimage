@@ -344,12 +344,15 @@ static u8 reg_val_to_color(u8 reg_val, enum fan_id id)
 static u8 is_fan_fault(struct as9817_64_fan_data *data, int id)
 {
     u8 ret = 1;
-    int fan_index = FAN1_FRONT_SPEED_RPM_REG + id;
 
-    /* Check if the speed of front or rear fan is ZERO,
-     */
-    if (reg_val_to_speed_rpm(data->reg_val[fan_index])) {
-        ret = 0;
+    /* Check if the front or rear fan is present or not. */
+    if (!reg_val_to_is_present(data->reg_val[FAN_PRESENT_REG], (id >> 1))) {
+       ret = 0; /* None present */
+    } else {
+        /* Check if the speed of front or rear fan is ZERO */
+        if (reg_val_to_speed_rpm(data->reg_val[FAN1_FRONT_SPEED_RPM_REG + id])) {
+            ret = 0;
+        }
     }
 
     return ret;

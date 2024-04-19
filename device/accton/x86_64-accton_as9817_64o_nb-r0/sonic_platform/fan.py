@@ -246,6 +246,9 @@ class Fan(FanBase):
             else:
                 return False
         else:
+            if not self.get_presence():
+                return False
+
             val = self._api_helper.glob_read_txt_file(self.hwmon_path + '_fault')
             if val is not None:
                 return int(val, 10)==0
