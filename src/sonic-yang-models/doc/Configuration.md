@@ -13,6 +13,7 @@ Table of Contents
 
          * [ACL and Mirroring](#acl-and-mirroring)
          * [BGP BBR](#bgp-bbr)
+         * [ASIC SDK health event](#asic-sdk-health-event)
          * [BGP Device Global](#bgp-device-global)
          * [BGP Sessions](#bgp-sessions)
          * [BUFFER_PG](#buffer_pg)
@@ -33,6 +34,7 @@ Table of Contents
          * [Device neighbor metada](#device-neighbor-metada)
          * [DHCP_RELAY](#dhcp_relay)
          * [DHCP Server IPV4](#dhcp_server_ipv4)
+         * [BMP](#bmp)
          * [DSCP_TO_TC_MAP](#dscp_to_tc_map)
          * [FG_NHG](#fg_nhg)
          * [FG_NHG_MEMBER](#fg_nhg_member)
@@ -382,6 +384,27 @@ The **BGP_BBR** table contains device-level BBR state.
         }
 }
 ```
+### ASIC SDK health event
+
+ASIC/SDK health event related configuration is defined in **SUPPRESS_ASIC_SDK_HEALTH_EVENT** table.
+
+```
+"SUPPRESS_ASIC_SDK_HEALTH_EVENT": {
+    "notice": {
+        "categories": [
+            "asic_hw"
+        ],
+        "max_events": "1000"
+    },
+    "warning": {
+        "categories": [
+            "software",
+            "cpu_hw"
+        ]
+    }
+}
+```
+
 ### BGP Device Global
 
 The **BGP_DEVICE_GLOBAL** table contains device-level BGP global state.
@@ -958,7 +981,8 @@ instance is supported in SONiC.
         "buffer_model": "traditional",
         "yang_config_validation": "disable",
         "rack_mgmt_map": "dummy_value",
-        "timezome": "Europe/Kiev"
+        "timezome": "Europe/Kiev",
+        "bgp_router_id": "8.8.8.8"
     }
   }
 }
@@ -1005,6 +1029,21 @@ instance is supported in SONiC.
     "interface_id": "true"
 }
 
+```
+
+### BMP
+BMP related configuration are defined in **bgp_neighbor_table**,**bgp_rib_in_table**, **bgp_rib_out_table** tables.
+
+```
+{
+    "BMP": {
+        "table": {
+            "bgp_neighbor_table": "true",
+            "bgp_rib_in_table": "false",
+            "bgp_rib_out_table": "false"
+        }
+    }
+}
 ```
 
 ### DHCP_SERVER_IPV4
@@ -1811,9 +1850,9 @@ optional attributes.
             "laser_freq": "191300",
             "tx_power": "-27.3",
             "dom_polling": "enabled",
-            "coreId": "1",
-            "corePortId": "1",
-            "numVoq": "8"
+            "core_id": "1",
+            "core_port_id": "1",
+            "num_voq": "8"
         },
         "Ethernet1": {
             "index": "1",
@@ -1827,9 +1866,9 @@ optional attributes.
             "laser_freq": "191300",
             "tx_power": "-27.3",
             "dom_polling": "enabled",
-            "coreId": "0",
-            "corePortId": "14",
-            "numVoq": "8"
+            "core_id": "0",
+            "core_port_id": "14",
+            "num_voq": "8"
         },
         "Ethernet63": {
             "index": "63",
@@ -1841,9 +1880,9 @@ optional attributes.
             "laser_freq": "191300",
             "tx_power": "-27.3",
             "dom_polling": "disabled",
-            "coreId": "0",
-            "corePortId": "15",
-            "numVoq": "8"
+            "core_id": "0",
+            "core_port_id": "15",
+            "num_voq": "8"
         }
     }
 }
