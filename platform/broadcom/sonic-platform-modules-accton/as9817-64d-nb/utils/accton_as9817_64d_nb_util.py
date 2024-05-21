@@ -134,6 +134,7 @@ kos = [
     'modprobe i2c_dev',
     'modprobe i2c_i801',
     'modprobe i2c_ismt',
+    'modprobe i2c_mux',
     'modprobe optoe',
     'modprobe at24',
     'modprobe i2c-ocores',
